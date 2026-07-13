@@ -1,5 +1,4 @@
 # FIL Framework — Platform Editions · V3.4.1
-> "Ne perdez plus le fil."
 > Trois plateformes · un framework · architecture unifiée.
 
 ---
@@ -102,5 +101,4 @@ Pour **les verticales** → Claude Project en priority · Gem en second.
 
 ---
 
-*FIL Framework V3.4.1 · Platform Editions*
-*"Ne perdez plus le fil."*
+*FIL Framework V3.4.1 · Platform Editions - AEL*
