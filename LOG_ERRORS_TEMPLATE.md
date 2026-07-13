@@ -182,4 +182,4 @@ QC_PASS_RATE           : N/A
 
 ---
 
-*[PROJECT_NAME] Error Log · FIL Framework V3.4.1*
+*[PROJECT_NAME] Error Log · FIL Framework V3.4.1 - AEL*
