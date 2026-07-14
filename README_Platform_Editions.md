@@ -101,3 +101,4 @@ For **verticals** → Claude Project as priority · Gem as second choice.
 ---
 
 *FIL Framework V3.4.1 · Platform Editions - AEL*
+*FIL Framework V3.4.1 · Platform Editions - AEL*

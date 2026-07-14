@@ -69,4 +69,4 @@ FIL IS:
 → A governance interpretation layer for persistent AI systems
 ```
 
-*FIL Framework V3.4.1 · Novema*
+*FIL Framework V3.4.1 · AEL*

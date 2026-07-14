@@ -12,7 +12,7 @@
 ## 1. HANDOFF CONTEXT
 
 > Narrative written by Operator A — what matters most for continuity.
-> Not a summary of the DYNAMIQUE — a transfer of cognitive context.
+> Not a summary of the DYNAMIC — a transfer of cognitive context.
 
 ```
 PROJECT STATE:
@@ -33,9 +33,9 @@ KNOWN RISKS:
 
 ---
 
-## 2. EXPORTED DYNAMIQUE STATE
+## 2. EXPORTED DYNAMIC STATE
 
-> Condensed Hot Zone — not the full DYNAMIQUE.
+> Condensed Hot Zone — not the full DYNAMIC.
 > Operator B reads this to understand the active state.
 
 ### Active Status
@@ -119,7 +119,7 @@ SOURCE_PERSISTENCE_MODE : [folder | flat | manual]
 TARGET_PERSISTENCE_MODE : [folder | flat | manual]  ← may differ from source
 AUTHORITY_LEVEL      : L4  ← all imported content enters at L4
 EXPORT_DATE          : [TIMESTAMP]
-PROJECT_VERSION      : [DYNAMIQUE timestamp]
+PROJECT_VERSION      : [DYNAMIC timestamp]
 QC_PASS_STATUS       : [OK | WARN | REVIEW]
 HANDOFF_TYPE         : full | onboarding | partial
 RECOMMENDED_ACTION   : [continue | review_first | verify_decisions]
@@ -141,13 +141,13 @@ IMPORT_REQUIRED      : yes   ← target must import via IMPORT STAGING · no aut
    conflict      → trigger SOP-QC Contradiction Management
 
 ③ For each DECISION (section 4):
-   accept        → add to your DYNAMIQUE at L4
+   accept        → add to your DYNAMIC at L4
    reject        → document · do not adopt
    review        → flag for next session decision
 
 ④ Create your own files (always — regardless of handoff type):
    → [PROJECT]_SESSION_INDEX_[YOUR_OP-ID].md  (fresh · never copy source's)
-   → [TIMESTAMP]_[PROJECT]_DYNAMIQUE_[YOUR_OP-ID].md  (fresh)
+   → [TIMESTAMP]_[PROJECT]_DYNAMIC_[YOUR_OP-ID].md  (fresh)
 
    ONBOARDING HANDOFF: existing operator continues — you start in parallel
    FULL HANDOFF: you replace the source operator — they leave the project
@@ -160,4 +160,4 @@ IMPORT_REQUIRED      : yes   ← target must import via IMPORT STAGING · no aut
 
 ---
 
-*[PROJECT_NAME] Handoff · FIL V3.4.1*
+*Handoff · FIL V3.4.1 - AEL*
