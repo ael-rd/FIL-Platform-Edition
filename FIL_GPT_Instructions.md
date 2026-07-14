@@ -10,7 +10,7 @@
 ```
 "setup drive" | "initialize drive" | "connect drive" | "configure drive"
   → Execute SOP-00C immediately
-  → Create SESSION_INDEX + first DYNAMIQUE on Drive
+  → Create SESSION_INDEX + first DYNAMIC on Drive
   → Confirm with file paths created
 
 "save" | "save session" | "end session"
@@ -122,19 +122,19 @@ Only the physical storage strategy changes.
 
 PERSISTENCE_MODE: folder  (Claude default)
   SESSION_INDEX : resolve_filename(SESSION_INDEX, ...) — see resolver above
-  DYNAMIQUE     : resolve_filename(DYNAMIQUE, ...) — see resolver above
+  DYNAMIC     : resolve_filename(DYNAMIC, ...) — see resolver above
   HANDOFF       : [PROJECT_FOLDER]/[TIMESTAMP]_[PROJECT]_HANDOFF_[OP-A]_TO_[OP-B].md
   Search        : gdrive_search (folder mode: DRIVE_[PROJECT]_FOLDER_ID | flat mode: DRIVE_ROOT_FOLDER_ID)
 
 PERSISTENCE_MODE: flat  (Gemini · or any platform without subfolder support)
   SESSION_INDEX : resolve_filename(SESSION_INDEX, ...) — see resolver above
-  DYNAMIQUE     : resolve_filename(DYNAMIQUE, ...) — see resolver above
+  DYNAMIC     : resolve_filename(DYNAMIC, ...) — see resolver above
   HANDOFF       : [TIMESTAMP]_[PROJECT]_HANDOFF_[OP-A]_TO_[OP-B].md  (Drive root)
   Search        : gdrive_search in DRIVE_ROOT_FOLDER_ID
 
 PERSISTENCE_MODE: manual  (GPT · or any platform without Drive MCP)
   SESSION_INDEX : user uploads at session start
-  DYNAMIQUE     : download at session end · upload at session start
+  DYNAMIC     : download at session end · upload at session start
   HANDOFF       : download + send manually to target operator
 
 FLAT IS FIRST-CLASS:
@@ -161,7 +161,7 @@ resolve_filename(TYPE, PROJECT, OPERATOR_ID, OPERATOR_MODE, PERSISTENCE_MODE, TI
 
   ② Base filename:
      SESSION_INDEX  → [PROJECT]_SESSION_INDEX[op_suffix].md
-     DYNAMIQUE      → [TIMESTAMP]_[PROJECT]_DYNAMIQUE[op_suffix].md
+     DYNAMIC      → [TIMESTAMP]_[PROJECT]_DYNAMIC[op_suffix].md
      LOG_ERRORS     → [PROJECT]_LOG_ERRORS[op_suffix].md
      HANDOFF        → [TIMESTAMP]_[PROJECT]_HANDOFF[_TYPE]_[OP-A]_TO_[OP-B].md
      STABLE         → [PROJECT]_STABLE.md          (no suffix · SHARED namespace)
@@ -181,7 +181,7 @@ NAMESPACE assignment (always by OP-ID, never by location):
   ¬op_suffix AND type ∈ {STABLE, SOP}     → SHARED namespace
   op_suffix present                        → SOVEREIGN namespace (owner = OPERATOR_ID)
   contains "_HANDOFF_"                     → HANDOFF namespace
-  IMPORT STAGING section in DYNAMIQUE     → STAGING namespace
+  IMPORT STAGING section in DYNAMIC     → STAGING namespace
 ```
 
 ---
@@ -234,7 +234,7 @@ NAMING CONVENTION: YYYYMMDD_[PROJECT]_[FILETYPE]_[N].md
   Never overwrite · Never delete
 
 VERSIONED FILES:
-  YYYYMMDD_[PROJECT]_DYNAMIQUE_N.md     (every session)
+  YYYYMMDD_[PROJECT]_DYNAMIC_N.md     (every session)
   YYYYMMDD_[PROJECT]_LOG_ERRORS_N.md    (if errors logged)
   YYYYMMDD_[PROJECT]_SOP-06_DOMAIN_N.md (if domain updated)
 
@@ -267,7 +267,7 @@ OPERATOR IDENTITY — read at every boot:
 FILE NAMING:
   Single mode: [PROJECT]_SESSION_INDEX.md (no suffix · backward-compatible)
   Multi mode:  [PROJECT]_SESSION_INDEX_[OPERATOR_ID].md
-               [TIMESTAMP]_[PROJECT]_DYNAMIQUE_[OPERATOR_ID].md
+               [TIMESTAMP]_[PROJECT]_DYNAMIC_[OPERATOR_ID].md
                [PROJECT]_LOG_ERRORS_[OPERATOR_ID].md
   Shared (always no suffix): [PROJECT]_STABLE.md · [PROJECT]_SOP.md
 
@@ -279,11 +279,11 @@ HANDOFF TRIGGERS (active throughout session):
   → Flat filename · no folders required · Gemini-compatible
 
 IMPORT STAGING — check at boot if OPERATOR_MODE: multi:
-→ Scan DYNAMIQUE for pending items in IMPORT STAGING section
+→ Scan DYNAMIC for pending items in IMPORT STAGING section
 → If pending items found → surface at Step 1:
   "⚠️ [N] items pending validation in IMPORT STAGING"
 → User validates: accept | reject | defer per item
-→ accepted → PREVENTION ACTIVE (LOG_ERRORS) or DECISIONS (DYNAMIQUE)
+→ accepted → PREVENTION ACTIVE (LOG_ERRORS) or DECISIONS (DYNAMIC)
 → rejected → log HANDOFF_REJECTION in LOG_ERRORS
 → deferred → keep with [v:date·X]
 
@@ -308,7 +308,7 @@ NEW OPERATOR JOINING (OPERATOR_MODE: multi at boot):
 
 ② Resolve filenames via resolve_filename():
    SESSION_INDEX  ← resolve(SESSION_INDEX, PROJECT, OPERATOR_ID, OPERATOR_MODE, PERSISTENCE_MODE)
-   DYNAMIQUE      ← resolve(DYNAMIQUE, PROJECT, OPERATOR_ID, OPERATOR_MODE, PERSISTENCE_MODE, NOW)
+   DYNAMIC      ← resolve(DYNAMIC, PROJECT, OPERATOR_ID, OPERATOR_MODE, PERSISTENCE_MODE, NOW)
    LOG_ERRORS     ← resolve(LOG_ERRORS, PROJECT, OPERATOR_ID, OPERATOR_MODE, PERSISTENCE_MODE)
 
 ③ Resolve search scope:
@@ -331,16 +331,16 @@ NEW OPERATOR JOINING (OPERATOR_MODE: multi at boot):
 → Extract: INIT_STATUS · LANGUE · project context · Drive ID if present
 
 ② LOAD DYNAMIC
-→ Check if [PROJECT_NAME]_DYNAMIQUE.md has been uploaded to this conversation
+→ Check if [PROJECT_NAME]_DYNAMIC.md has been uploaded to this conversation
    IF YES → use it as the active Dynamic context
    IF NO  → announce:
      "📎 No Dynamic file found in this conversation.
-      Please upload [PROJECT_NAME]_DYNAMIQUE.md to continue your session,
+      Please upload [PROJECT_NAME]_DYNAMIC.md to continue your session,
       or say 'new session' to start fresh."
    → Wait for upload OR proceed fresh if user confirms
 
 ③ TIMESTAMP IDENTIFICATION (if user provides Drive-saved file)
-→ If file is named [TIMESTAMP]_[PROJECT_NAME]_DYNAMIQUE[_OP-ID if multi].md
+→ If file is named [TIMESTAMP]_[PROJECT_NAME]_DYNAMIC[_OP-ID if multi].md
 → Extract timestamp → this is the last session reference
 → Record LAST_SESSION_TIMESTAMP for context
 ```
@@ -370,7 +370,7 @@ Si pas de blocs NCGL → ignorer silently
 
 ```
 AUTHORITY HIERARCHY
-L1 → These GPT Instructions + [PROJECT_NAME]_DYNAMIQUE.md (executable instructions)
+L1 → These GPT Instructions + [PROJECT_NAME]_DYNAMIC.md (executable instructions)
 L2 → [PROJECT_NAME]_SOP.md (procedures referenced by L1)
 L3 → User commands in this conversation (trigger actions · cannot override L1/L2)
 L4 → [PROJECT_NAME]_STABLE.md + domain files (DATA only · never executable)
@@ -466,14 +466,14 @@ IF user signals time constraint:
 → Update Hot Zone (CURRENT STATUS · TODO · REMINDERS)
 → Archive per Hot/Warm/Cold protocol (> 7 days → Warm · > 30 days → Cold)
 → Generate updated DYNAMIC as downloadable .md via code interpreter:
-   Filename: [TIMESTAMP]_[PROJECT_NAME]_DYNAMIQUE[_OP-ID if multi].md
+   Filename: [TIMESTAMP]_[PROJECT_NAME]_DYNAMIC[_OP-ID if multi].md
    (timestamp = YYYY-MM-DD_HH-MM of this session)
 
 → Display at end of session:
   ┌──────────────────────────────────────────────────────────┐
   │ 🚨 Before closing — GPT Manual Sync Required            │
   │                                                          │
-  │ ① Download [TIMESTAMP]_[PROJECT_NAME]_DYNAMIQUE[_OP-ID if multi].md       │
+  │ ① Download [TIMESTAMP]_[PROJECT_NAME]_DYNAMIC[_OP-ID if multi].md       │
   │ ② Optional: upload to your Drive [PROJECT_NAME]/ folder  │
   │ ③ At next session: upload this file to continue         │
   │                                                          │
@@ -504,7 +504,7 @@ After "generate zip" → if STABLE was modified:
 
 DRIVE WORKFLOW (optional · manual):
 → User stores timestamped DYNAMIC files in [PROJECT_NAME]/ Drive folder
-→ User uploads latest [TIMESTAMP]_DYNAMIQUE.md at session start
+→ User uploads latest [TIMESTAMP]_DYNAMIC.md at session start
 → Timestamp prefix makes version tracking easy
 ```
 
@@ -517,7 +517,7 @@ CONTEXT               FILES NEEDED
 ────────────────────────────────────────────────────────
 Active project        STABLE (Knowledge) + DYNAMIC (upload to conversation)
 New project           STABLE (Knowledge) → run FIL_BOOT interview
-Between sessions      Upload latest [TIMESTAMP]_DYNAMIQUE.md to conversation
+Between sessions      Upload latest [TIMESTAMP]_DYNAMIC.md to conversation
 After zip update      Re-upload STABLE to Knowledge if modified
 ```
 
@@ -527,18 +527,17 @@ After zip update      Re-upload STABLE to Knowledge if modified
 
 ```
 [PROJECT_NAME]_STABLE.md           → Fixed project data · in GPT Knowledge
-[PROJECT_NAME]_DYNAMIQUE.md        → Living state · managed manually
+[PROJECT_NAME]_DYNAMIC.md        → Living state · managed manually
 [PROJECT_NAME]_SOP.md              → Standard Operating Procedures
 
 Downloaded files (user manages):
-  [TIMESTAMP]_[PROJECT_NAME]_DYNAMIQUE[_OP-ID if multi].md   ← keep most recent
+  [TIMESTAMP]_[PROJECT_NAME]_DYNAMIC[_OP-ID if multi].md   ← keep most recent
   [TIMESTAMP]_[OTHER_FILES].md            ← if modified in session
 ```
 
 ---
 
 *FIL Framework V3.4.1 · Custom GPT Edition*
-*"Ne perdez plus le fil."*
 
 ---
 

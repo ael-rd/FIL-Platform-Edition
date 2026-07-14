@@ -17,7 +17,7 @@
 
 ② Resolve filenames via resolve_filename():
    SESSION_INDEX ← [PROJECT]_SESSION_INDEX[_OP-ID if multi].md
-   DYNAMIQUE     ← [TIMESTAMP]_[PROJECT]_DYNAMIQUE[_OP-ID if multi].md
+   DYNAMIC     ← [TIMESTAMP]_[PROJECT]_DYNAMIC[_OP-ID if multi].md
    LOG_ERRORS    ← [PROJECT]_LOG_ERRORS[_OP-ID if multi].md
 
 ③ Search scope:
@@ -40,7 +40,7 @@ Always infer ownership from namespace + OP-ID.
 
    IF FOUND → read:
      SESSION_MODE          → NORMAL | RECOVERY | INIT
-     DYNAMIC_FILE          → load that DYNAMIQUE file from Drive
+     DYNAMIC_FILE          → load that DYNAMIC file from Drive
      LAST_LOG_ERRORS_FILE  → load that LOG_ERRORS file from Drive
      LAST_SOP06_FILE       → load that SOP-06_DOMAIN file on demand (Step 4)
 
@@ -50,7 +50,7 @@ Always infer ownership from namespace + OP-ID.
 
 VERSIONED NAMING RULE:
   Files never overwritten · never deleted
-  YYYYMMDD_[PROJECT]_DYNAMIQUE_N.md
+  YYYYMMDD_[PROJECT]_DYNAMIC_N.md
   YYYYMMDD_[PROJECT]_LOG_ERRORS_N.md
   YYYYMMDD_[PROJECT]_SOP-06_DOMAIN_N.md
 ```
@@ -114,7 +114,7 @@ Explicit: LOG_ERROR: [description] → log immediately without confirmation
 ```
 IF INIT_STATUS = NOT_INITIALIZED in STABLE:
 → Run FIL_BOOT interview before any other action
-→ Generate STABLE · SOP · first DYNAMIQUE
+→ Generate STABLE · SOP · first DYNAMIC
 → Do not run mandatory sequence on empty data
 ```
 
@@ -241,9 +241,9 @@ HANDOFF TRIGGERS:
 ⑨ VERSIONED SAVE (append-only · never overwrite · never delete):
    today = YYYYMMDD (from system context · e.g. 20260607)
 
-   a) DYNAMIQUE (always · every session):
-      Search Drive: "today_[PROJECT]_DYNAMIQUE_*" → count = N existing
-      Save as: today_[PROJECT]_DYNAMIQUE_(N+1).md
+   a) DYNAMIC (always · every session):
+      Search Drive: "today_[PROJECT]_DYNAMIC_*" → count = N existing
+      Save as: today_[PROJECT]_DYNAMIC_(N+1).md
 
    b) LOG_ERRORS (if new errors logged this session):
       Search Drive: "today_[PROJECT]_LOG_ERRORS_*" → count
@@ -254,7 +254,7 @@ HANDOFF TRIGGERS:
       Save as: today_[PROJECT]_SOP-06_DOMAIN_(N+1).md
 
    Confirm: "✅ Session saved:
-    · today_[PROJECT]_DYNAMIQUE_(N+1).md
+    · today_[PROJECT]_DYNAMIC_(N+1).md
     · today_[PROJECT]_LOG_ERRORS_(N+1).md  [if saved]
     · today_[PROJECT]_SOP-06_DOMAIN_(N+1).md  [if saved]"
 
@@ -265,7 +265,7 @@ HANDOFF TRIGGERS:
 
 ⑪ Update SESSION_INDEX (search + update · never create alone):
    SESSION_ID              ← YYYYMMDD_N (composite)
-   DYNAMIC_FILE            ← new YYYYMMDD_[PROJECT]_DYNAMIQUE_N.md
+   DYNAMIC_FILE            ← new YYYYMMDD_[PROJECT]_DYNAMIC_N.md
    LAST_GOOD_DYNAMIC_FILE  ← update if LAST_SAVE_STATUS = SUCCESS
    LAST_LOG_ERRORS_FILE    ← new file if LOG_ERRORS saved · else keep previous
    LAST_SOP06_FILE         ← new file if SOP-06_DOMAIN saved · else keep previous

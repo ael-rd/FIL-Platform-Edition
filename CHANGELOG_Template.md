@@ -1,39 +1,40 @@
-# [PROJECT_NAME] — Changelog
-> Version courante : **1.5.3**
-> Convention de versioning :
-> → Major (X.0.0) : changement du fonctionnement du système
-> → Minor (X.Y.0) : new [domain/collection/destination/sprint]
-> → Patch (X.Y.Z) : corrections, mises à jour, ajustements
+[PROJECT_NAME] — Changelog
 
----
 
-## V1.3.1 — [DATE] · Création initiale
+Current version: 1.5.3
+Versioning convention:
+→ Major (X.0.0): change in system behavior
+→ Minor (X.Y.0): new [domain/collection/destination/sprint]
+→ Patch (X.Y.Z): fixes, updates, adjustments
 
-### Création du système
-→ Fichiers créés : STABLE · DYNAMIQUE · SOP · CHANGELOG
-→ Basé sur le Framework FIL V1.5.3
-→ Domaine : [DOMAINE]
 
----
 
-## PROTOCOLE DE MISE À JOUR
 
-```
-At session end, on request "generate zip" :
+V1.3.1 — [DATE] · Initial creation
 
-1. IDENTIFIER le type de changement de la session :
-   → Changement de fonctionnement      → MAJOR (X+1.0.0)
-   → New [domain/collection/etc.] → MINOR (X.Y+1.0)
-   → Correction / update          → PATCH (X.Y.Z+1)
+System creation
 
-2. METTRE À JOUR ce fichier :
-   → Incrémenter la version courante en tête du fichier
-   → Ajouter une entrée datée avec les changements de session
+→ Files created: STABLE · DYNAMIC · SOP · CHANGELOG
+→ Based on FIL Framework V1.5.3
+→ Domain: [DOMAIN]
 
-3. RÉGÉNÉRER [PROJECT_NAME]_VX.Y.Z.zip :
-   → STABLE + DYNAMIQUE + SOP + CHANGELOG
-   → Nom : [PROJECT_NAME]_VX.Y.Z.zip
 
-4. ANNONCER :
-   "📦 [PROJECT_NAME]_VX.Y.Z.zip généré — 4 fichiers — V[X.Y.Z]"
-```
+UPDATE PROTOCOL
+
+At session end, on request "generate zip":
+
+1. IDENTIFY the type of change for the session:
+   → Change in system behavior         → MAJOR (X+1.0.0)
+   → New [domain/collection/etc.]      → MINOR (X.Y+1.0)
+   → Fix / update                      → PATCH (X.Y.Z+1)
+
+2. UPDATE this file:
+   → Increment the current version at the top of the file
+   → Add a dated entry with the session's changes
+
+3. REGENERATE [PROJECT_NAME]_VX.Y.Z.zip:
+   → STABLE + DYNAMIC + SOP + CHANGELOG
+   → Name: [PROJECT_NAME]_VX.Y.Z.zip
+
+4. ANNOUNCE:
+   "📦 [PROJECT_NAME]_VX.Y.Z.zip generated — 4 files — V[X.Y.Z]"

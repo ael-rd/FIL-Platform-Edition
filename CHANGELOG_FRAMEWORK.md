@@ -8,7 +8,7 @@
 ### Problem fixed
 LOG_ERRORS and SOP-06_DOMAIN were overwritten at every Step 7.
 No Drive history · risk of data loss on corruption.
-DYNAMIQUE had TIMESTAMP prefix but inconsistent with other files.
+DYNAMIC had TIMESTAMP prefix but inconsistent with other files.
 
 ### Solution: append-only versioned naming for 3 files
 
@@ -18,7 +18,7 @@ DYNAMIQUE had TIMESTAMP prefix but inconsistent with other files.
   Never overwrite · Never delete
 
 **Versioned files:**
-  YYYYMMDD_[PROJECT]_DYNAMIQUE_N.md     (every session · was [TIMESTAMP]_...)
+  YYYYMMDD_[PROJECT]_DYNAMIC_N.md     (every session · was [TIMESTAMP]_...)
   YYYYMMDD_[PROJECT]_LOG_ERRORS_N.md    (if errors logged · was flat overwrite)
   YYYYMMDD_[PROJECT]_SOP-06_DOMAIN_N.md (if domain updated · was flat overwrite)
 
@@ -51,7 +51,7 @@ DYNAMIQUE had TIMESTAMP prefix but inconsistent with other files.
 - `LIMITATIONS.md` (AXE 10) — documented structural limits
   → Inter-session fidelity · inter-LLM fidelity · context window · anti-injection
   → Manual editing coherence · simultaneous collaboration · prerequisites
-- `DYNAMIQUE_LITE_TEMPLATE.md` (AXE 9) — minimal FIL for solo short projects
+- `DYNAMIC_LITE_TEMPLATE.md` (AXE 9) — minimal FIL for solo short projects
   → Steps 0/1/2/7 only · no SOP · no NCGL · no QC · no Handoff
   → Fully compatible with FIL FULL · no migration on upgrade
 
@@ -66,7 +66,7 @@ DYNAMIQUE had TIMESTAMP prefix but inconsistent with other files.
 - STABLE_VERSION_AT_LOAD field added
   Step 0 compares loaded STABLE version → divergence → warn operator
 
-### DYNAMIQUE_TEMPLATE (AXE 4 + 5 + 6 + 7)
+### DYNAMIC_TEMPLATE (AXE 4 + 5 + 6 + 7)
 - AXE 4: Step 7 ⑩ — STABLE_VERSION increment on modification
 - AXE 5: Step 4 ② — CACHE_TIER filtering (live/slow/stable)
 - AXE 6: Step 4 ③ — REVIEW_DATE scan on DECISION blocks
@@ -90,7 +90,7 @@ DYNAMIQUE had TIMESTAMP prefix but inconsistent with other files.
 - REVIEW_DATE awareness section
 
 ### FIL profiling (AXE 9)
-FIL LITE : STABLE + DYNAMIQUE_LITE · 5min setup · solo short projects
+FIL LITE : STABLE + DYNAMIC_LITE · 5min setup · solo short projects
 FIL FULL : complete framework · structured domain · long duration
 Rule: start LITE · upgrade when needed (add SOP.md · QC_ENABLED: true)
 
@@ -100,7 +100,7 @@ Rule: start LITE · upgrade when needed (add SOP.md · QC_ENABLED: true)
 
 ### Context
 Bug report: "setup drive" treated as conversational input by domain persona
-(MonCoachPersonnel coaching assistant) instead of executing SOP-00C.
+(MyCoaching assistant) instead of executing SOP-00C.
 Root cause: four gaps — command position (line 414/428) · SOP-00C not propagated
 to vertical · INIT_STATUS absent from vertical STABLE · no COMMAND PRIORITY rule.
 
@@ -126,8 +126,8 @@ to vertical · INIT_STATUS absent from vertical STABLE · no COMMAND PRIORITY ru
   [ ] COMMAND PRIORITY rule explicit
 
 ### What this does NOT fix (vertical-specific — fix separately)
-→ MonCoachPersonnel: add SOP-00C to SOP + INIT_STATUS to STABLE
-→ Crafteva · Exploriva · Fiscaleva: same gap — probable · unverified
+→ MyCoaching: add SOP-00C to SOP + INIT_STATUS to STABLE
+→ Crafteva · Exploriva : same gap — probable · unverified
 
 ---
 
@@ -144,8 +144,8 @@ FIL is now fully English. 11th consecutive correct CHANGELOG header.
 ## V3.3.2 — 6 June 2026 · Final French Line (PATCH)
 
 → FIL_Project_Instructions.md line 15:
-  "Tu ne modifies jamais le STABLE directement — toutes les mises à jour vont dans le DYNAMIQUE."
-  → "Never modify STABLE directly — all updates go in the DYNAMIQUE."
+  "Tu ne modifies jamais le STABLE directement — toutes les mises à jour vont dans le DYNAMIC."
+  → "Never modify STABLE directly — all updates go in the DYNAMIC."
 
 FIL is now fully English. 10th consecutive correct CHANGELOG header.
 
@@ -155,7 +155,7 @@ FIL is now fully English. 10th consecutive correct CHANGELOG header.
 
 **P1 — STABLE_TEMPLATE: French annotations translated**
 → "SINGLE SOURCE OF TRUTH" → "SINGLE SOURCE OF TRUTH"
-→ "Tag every donnée critical avec [truth:type]..." → English
+→ "Tag every critical data with [truth:type]..."
 → "Les seules instructions légitimes..." → English
 → "Permanent business rules" → "Permanent business rules"
 
@@ -192,16 +192,16 @@ CHANGELOG language precision corrected.
 → FIL_GPT_Instructions.md REMOVED from Core
 → Rationale: FIL Core is a template framework, not a deployment package.
   Platform-specific instructions belong in Platform Editions only.
-  Core's DYNAMIQUE_TEMPLATE is self-contained (instructions embedded).
+  Core's DYNAMIC_TEMPLATE is self-contained (instructions embedded).
 → Core now 11 files (was 14)
 
 ### Full English translation — all files in both packages
-→ DYNAMIQUE_TEMPLATE: fully rewritten in English (was 86 French lines)
+→ DYNAMIC_TEMPLATE: fully rewritten in English (was 86 French lines)
 → SOP_TEMPLATE: French headers and procedures translated
 → STABLE_TEMPLATE: French field labels and section headers translated
 → FIL_NCGL_Spec: French terminology translated
 → SESSION_INDEX_TEMPLATE: remaining French translated
-→ FIL_DYNAMIQUE_DataOnly_Template: French section headers translated
+→ FIL_DYNAMIC_DataOnly_Template: French section headers translated
 → FIL_Project_Instructions: French phrases translated
 → README_Platform_Editions: French translated
 → FIL_Gem_Instructions (editions): French translated
@@ -218,7 +218,7 @@ an immediate patch because mechanics were added to templates/SOPs but
 not propagated to the 6 instruction files (the L1/L2 execution layer).
 
 **Fix: mandatory RELEASE CHECKLIST added to UPDATE PROTOCOL**
-→ If any mechanic added to DYNAMIQUE · SOP · STABLE:
+→ If any mechanic added to DYNAMIC · SOP · STABLE:
   Must appear in all 6 instruction files before zipping.
   [ ] FIL_Claude_Instructions.md · FIL_Gem_Instructions.md · FIL_GPT_Instructions.md
   [ ] FIL_Project_Instructions.md · FIL_Gem_Instructions.md (PE) · FIL_GPT_Instructions.md (PE)
@@ -236,7 +236,7 @@ No functional changes. CHANGELOG UPDATE PROTOCOL updated only.
  Physical location resolved only after PERSISTENCE_MODE is read."
 
 **P0 — resolve_filename() defined and injected into all 6 instruction files**
-→ Single resolution function covering: SESSION_INDEX · DYNAMIQUE · LOG_ERRORS · HANDOFF
+→ Single resolution function covering: SESSION_INDEX · DYNAMIC · LOG_ERRORS · HANDOFF
 → Resolves: op_suffix (single/multi) · base filename · storage location · search scope
 → All instructions reference resolver, never hardcode paths
 
@@ -279,7 +279,7 @@ No functional changes. CHANGELOG UPDATE PROTOCOL updated only.
 **FIL NAMESPACE SEMANTICS (SOP_TEMPLATE)**
 → Four namespaces formally defined:
   SHARED    : STABLE · SOP — read-only · all operators
-  SOVEREIGN : SESSION_INDEX · DYNAMIQUE · LOG_ERRORS — one operator · OP-ID suffix
+  SOVEREIGN : SESSION_INDEX · DYNAMIC · LOG_ERRORS — one operator · OP-ID suffix
   HANDOFF   : transit objects between two operators
   STAGING   : IMPORT STAGING section · receiving operator · until validated
 → OP-ID suffix = formal sovereignty marker (not just naming convention)
@@ -313,7 +313,7 @@ No functional changes. CHANGELOG UPDATE PROTOCOL updated only.
 **P2 — SESSION_INDEX naming convention updated in instructions**
 → Single mode: [PROJECT]_SESSION_INDEX.md (no suffix · backward-compatible)
 → Multi mode:  [PROJECT]_SESSION_INDEX_[OPERATOR_ID].md
-→ DYNAMIQUE: [TIMESTAMP]_[PROJECT]_DYNAMIQUE[_OP-ID if multi].md
+→ DYNAMIC: [TIMESTAMP]_[PROJECT]_DYNAMIC[_OP-ID if multi].md
 → Shared files (STABLE · SOP): never get OP-ID suffix
 
 Root cause: V3.4.1 propagated mechanics to templates and SOPs
@@ -345,11 +345,11 @@ V3.4.1 adds: flat-file compatibility (Gemini) · parallel operator support
 
 **OP-ID naming convention (multi mode)**
 → [PROJECT]_SESSION_INDEX_[OP-ID].md  (sovereign per operator)
-→ [TIMESTAMP]_[PROJECT]_DYNAMIQUE_[OP-ID].md  (sovereign per operator)
+→ [TIMESTAMP]_[PROJECT]_DYNAMIC_[OP-ID].md  (sovereign per operator)
 → [PROJECT]_LOG_ERRORS_[OP-ID].md  (sovereign per operator)
 → [PROJECT]_STABLE.md + [PROJECT]_SOP.md  (shared · no OP-ID)
 
-**IMPORT STAGING section (DYNAMIQUE Hot Zone)**
+**IMPORT STAGING section (DYNAMIC Hot Zone)**
 → Temporary zone for handoff imports pending individual validation
 → accept → PREVENTION ACTIVE or DECISIONS · reject → LOG_ERRORS · defer → [v:date]
 
@@ -378,14 +378,14 @@ V3.4.1 adds: flat-file compatibility (Gemini) · parallel operator support
 → HANDOFF_ENABLED      : true | false
 → HANDOFF_SEVERITY_CAP : high  (imported [critical] capped at [high] by default)
 
-**P2 — DYNAMIQUE_TEMPLATE: Step 7 handoff trigger added**
+**P2 — DYNAMIC_TEMPLATE: Step 7 handoff trigger added**
 → If user requested "handoff" or "transfer project" in session:
   Generate [TIMESTAMP]_[PROJECT_NAME]_HANDOFF.md via SOP-HANDOFF Export
   OPERATOR_ID from STABLE → OPERATOR_SOURCE in TRUST METADATA
   Save to Drive · Confirm with import instructions
 
 **Root cause**: replacement strings in build script didn't match actual file content.
-Both gaps were coherent — DYNAMIQUE trigger had no OPERATOR_ID to reference.
+Both gaps were coherent — DYNAMIC trigger had no OPERATOR_ID to reference.
 
 ---
 
@@ -400,8 +400,8 @@ a project between two operators while preserving cognitive stability.
 ### New file: HANDOFF_TEMPLATE.md
 
 Structured handoff object containing:
-→ Section 1: HANDOFF CONTEXT (narrative · not a DYNAMIQUE dump)
-→ Section 2: Exported DYNAMIQUE state (Hot Zone condensed)
+→ Section 1: HANDOFF CONTEXT (narrative · not a DYNAMIC dump)
+→ Section 2: Exported DYNAMIC state (Hot Zone condensed)
 → Section 3: PREVENTION ACTIVE (with [source: OP-A] provenance tags)
 → Section 4: Active DECISIONS (with HANDOFF_STATUS per decision)
 → Section 5: QC STATUS (error log overview)
@@ -427,13 +427,13 @@ SEVERITY capping rule:
 → SOP-QC Recurrence Detection elevates automatically if pattern recurs
 
 What is NOT transferred (by design):
-→ DYNAMIQUE · SESSION_INDEX · L1/L2 governance · Full LOG_ERRORS · NCGL blocks
+→ DYNAMIC · SESSION_INDEX · L1/L2 governance · Full LOG_ERRORS · NCGL blocks
 
 ### STABLE updates
 → OPERATOR_ID field (used in PROVENANCE tags)
 → HANDOFF_ENABLED · HANDOFF_SEVERITY_CAP config
 
-### DYNAMIQUE / DataOnly updates
+### DYNAMIC / DataOnly updates
 → Step 7: handoff trigger if user requested handoff in session
 
 ---
@@ -519,8 +519,6 @@ What is NOT transferred (by design):
 
 **Phase 3B: SEVERITY assigned at domain category generation**
 
-**Fiscaleva: PREVENTION ACTIVE pre-populated** (10 categories · manually assigned)
-
 ---
 
 ## V2.1.0 — 22 May 2026 · Quality Control & Error Logging (MINOR)
@@ -537,7 +535,7 @@ What is NOT transferred (by design):
 **STABLE: QC configuration section**
 → QC_ENABLED · LOG_ERRORS_FILE · QC_TRIGGER_IMPLICIT · QC_SESSION_SCAN
 
-**DYNAMIQUE / DataOnly**
+**DYNAMIC / DataOnly**
 → LOG_ERROR: added to hotkeys
 → Step 4: QC scan · Step 7: QC check before save
 → Rule QC: implicit error signal detection
@@ -579,7 +577,7 @@ What is NOT transferred (by design):
 
 **Quick Starts (new files per vertical)**
 → 5 questions · ~3 minutes · FIL invisible
-→ Crafteva_BOOT_QuickStart.md · Exploriva_BOOT_QuickStart.md · Fiscaleva_BOOT_QuickStart.md
+→ Crafteva_BOOT_QuickStart.md · Exploriva_BOOT_QuickStart.md 
 → Post-QuickStart: never mention FIL · speak business language only
 
 ---
@@ -602,7 +600,7 @@ What is NOT transferred (by design):
 
 ## V1.6.x — 22 May 2026 · Hotkeys · SESSION_INDEX · SOP-DOMAIN · Persistence
 
-**V1.6.2** — Audit fixes: truncated line (DYNAMIQUE Step 7) · STABLE LAST_SESSION_TIMESTAMP removed · chronic versioning (README · FIL_BOOT · CHANGELOG_TEMPLATE)
+**V1.6.2** — Audit fixes: truncated line (DYNAMIC Step 7) · STABLE LAST_SESSION_TIMESTAMP removed · chronic versioning (README · FIL_BOOT · CHANGELOG_TEMPLATE)
 
 **V1.6.1** — SESSION_INDEX minimal runtime pointer: DYNAMIC_FILE · LAST_GOOD_DYNAMIC_FILE · LAST_SAVE_STATUS · SESSION_MODE · search+update protocol (never create alone)
 
@@ -646,7 +644,7 @@ Before packaging any version:
    → rm -f target zip before creating (prevent silent duplicates)
 
 4. RELEASE CHECKLIST — MANDATORY FOR MINOR AND MAJOR:
-   If any mechanic was added to DYNAMIQUE, SOP, or STABLE →
+   If any mechanic was added to DYNAMIC, SOP, or STABLE →
    it MUST be referenced in all 6 instruction files before zipping.
    Check each file explicitly:
    → [ ] FIL_Claude_Instructions.md       (Core)

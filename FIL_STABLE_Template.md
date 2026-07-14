@@ -326,3 +326,4 @@ V1 ([DATE])
 → Initial project creation [PROJECT_NAME]
 → System based on FIL Framework
 ```
+*[PROJECT_NAME] STABLE · FIL V3.4.1 - AEL*

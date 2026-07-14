@@ -40,7 +40,7 @@ IF STABLE FOUND AND no SESSION_INDEX for current operator:
      What's your OPERATOR_ID? (e.g. OP-LUCAS, OP-EMMA)"
 
 → On A: skip Phase 1 interview · go to Phase Drive with existing STABLE
-        create SESSION_INDEX_[OP-ID].md and fresh DYNAMIQUE_[OP-ID].md
+        create SESSION_INDEX_[OP-ID].md and fresh DYNAMIC_[OP-ID].md
 
 → On B: instructions for existing operator to generate onboarding handoff
         "Ask [operator] to say: 'onboarding handoff to [YOUR-OP-ID]'
@@ -150,7 +150,7 @@ ANNOUNCE:
 
 Generate in this order:
 ① [PROJECT_NAME]_STABLE.md
-② [PROJECT_NAME]_DYNAMIQUE.md  (or DYNAMIQUE_DataOnly for Projects/Gem/GPT)
+② [PROJECT_NAME]_DYNAMIC.md  (or DYNAMIC_DataOnly for Projects/Gem/GPT)
 ③ [PROJECT_NAME]_SOP.md
 ④ CHANGELOG_[PROJECT_NAME].md
 
@@ -327,12 +327,12 @@ EXECUTE:
    PIN: Project [PROJECT_NAME] initialized · [DATE] · [truth:user-confirmed]
 
 ② Trigger full Step 7:
-   → Generate [TIMESTAMP]_[PROJECT_NAME]_DYNAMIQUE.md
+   → Generate [TIMESTAMP]_[PROJECT_NAME]_DYNAMIC.md
    → gdrive_create_file(timestamped DYNAMIC)
    → Create [PROJECT_NAME]_SESSION_INDEX.md:
       SESSION_ID              : [TIMESTAMP]
-      DYNAMIC_FILE            : [TIMESTAMP]_[PROJECT_NAME]_DYNAMIQUE.md
-      LAST_GOOD_DYNAMIC_FILE  : [TIMESTAMP]_[PROJECT_NAME]_DYNAMIQUE.md
+      DYNAMIC_FILE            : [TIMESTAMP]_[PROJECT_NAME]_DYNAMIC.md
+      LAST_GOOD_DYNAMIC_FILE  : [TIMESTAMP]_[PROJECT_NAME]_DYNAMIC.md
       LAST_SAVE               : [TIMESTAMP]
       LAST_SAVE_STATUS        : SUCCESS
       SESSION_MODE            : INIT
@@ -346,7 +346,7 @@ EXECUTE:
 → "✅ First checkpoint in place.
    Your Drive now contains:
    · [PROJECT_NAME]_SESSION_INDEX.md  ← runtime pointer
-   · [TIMESTAMP]_[PROJECT_NAME]_DYNAMIQUE.md ← initial state
+   · [TIMESTAMP]_[PROJECT_NAME]_DYNAMIC.md ← initial state
 
    Session 2: these files load automatically."
 
@@ -415,4 +415,4 @@ CLAUDE STANDARD  → load [PROJECT_NAME]_Claude_Instructions.md
 
 ---
 
-*FIL Framework — Boot File · V3.4.1 · Novema*
+*FIL Framework — Boot File · V3.4.1 · AEL*

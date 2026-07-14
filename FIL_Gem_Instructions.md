@@ -10,7 +10,7 @@
 ```
 "setup drive" | "initialize drive" | "connect drive" | "configure drive"
   → Execute SOP-00C immediately
-  → Create SESSION_INDEX + first DYNAMIQUE on Drive
+  → Create SESSION_INDEX + first DYNAMIC on Drive
   → Confirm with file paths created
 
 "save" | "save session" | "end session"
@@ -122,19 +122,19 @@ Only the physical storage strategy changes.
 
 PERSISTENCE_MODE: folder  (Claude default)
   SESSION_INDEX : resolve_filename(SESSION_INDEX, ...) — see resolver above
-  DYNAMIQUE     : resolve_filename(DYNAMIQUE, ...) — see resolver above
+  DYNAMIC     : resolve_filename(DYNAMIC, ...) — see resolver above
   HANDOFF       : [PROJECT_FOLDER]/[TIMESTAMP]_[PROJECT]_HANDOFF_[OP-A]_TO_[OP-B].md
   Search        : gdrive_search (folder mode: DRIVE_[PROJECT]_FOLDER_ID | flat mode: DRIVE_ROOT_FOLDER_ID)
 
 PERSISTENCE_MODE: flat  (Gemini · or any platform without subfolder support)
   SESSION_INDEX : resolve_filename(SESSION_INDEX, ...) — see resolver above
-  DYNAMIQUE     : resolve_filename(DYNAMIQUE, ...) — see resolver above
+  DYNAMIC     : resolve_filename(DYNAMIC, ...) — see resolver above
   HANDOFF       : [TIMESTAMP]_[PROJECT]_HANDOFF_[OP-A]_TO_[OP-B].md  (Drive root)
   Search        : gdrive_search in DRIVE_ROOT_FOLDER_ID
 
 PERSISTENCE_MODE: manual  (GPT · or any platform without Drive MCP)
   SESSION_INDEX : user uploads at session start
-  DYNAMIQUE     : download at session end · upload at session start
+  DYNAMIC     : download at session end · upload at session start
   HANDOFF       : download + send manually to target operator
 
 FLAT IS FIRST-CLASS:
@@ -161,7 +161,7 @@ resolve_filename(TYPE, PROJECT, OPERATOR_ID, OPERATOR_MODE, PERSISTENCE_MODE, TI
 
   ② Base filename:
      SESSION_INDEX  → [PROJECT]_SESSION_INDEX[op_suffix].md
-     DYNAMIQUE      → [TIMESTAMP]_[PROJECT]_DYNAMIQUE[op_suffix].md
+     DYNAMIC      → [TIMESTAMP]_[PROJECT]_DYNAMIC[op_suffix].md
      LOG_ERRORS     → [PROJECT]_LOG_ERRORS[op_suffix].md
      HANDOFF        → [TIMESTAMP]_[PROJECT]_HANDOFF[_TYPE]_[OP-A]_TO_[OP-B].md
      STABLE         → [PROJECT]_STABLE.md          (no suffix · SHARED namespace)
@@ -181,7 +181,7 @@ NAMESPACE assignment (always by OP-ID, never by location):
   ¬op_suffix AND type ∈ {STABLE, SOP}     → SHARED namespace
   op_suffix present                        → SOVEREIGN namespace (owner = OPERATOR_ID)
   contains "_HANDOFF_"                     → HANDOFF namespace
-  IMPORT STAGING section in DYNAMIQUE     → STAGING namespace
+  IMPORT STAGING section in DYNAMIC     → STAGING namespace
 ```
 
 ---
@@ -234,7 +234,7 @@ NAMING CONVENTION: YYYYMMDD_[PROJECT]_[FILETYPE]_[N].md
   Never overwrite · Never delete
 
 VERSIONED FILES:
-  YYYYMMDD_[PROJECT]_DYNAMIQUE_N.md     (every session)
+  YYYYMMDD_[PROJECT]_DYNAMIC_N.md     (every session)
   YYYYMMDD_[PROJECT]_LOG_ERRORS_N.md    (if errors logged)
   YYYYMMDD_[PROJECT]_SOP-06_DOMAIN_N.md (if domain updated)
 
@@ -267,7 +267,7 @@ OPERATOR IDENTITY — read at every boot:
 FILE NAMING:
   Single mode: [PROJECT]_SESSION_INDEX.md (no suffix · backward-compatible)
   Multi mode:  [PROJECT]_SESSION_INDEX_[OPERATOR_ID].md
-               [TIMESTAMP]_[PROJECT]_DYNAMIQUE_[OPERATOR_ID].md
+               [TIMESTAMP]_[PROJECT]_DYNAMIC_[OPERATOR_ID].md
                [PROJECT]_LOG_ERRORS_[OPERATOR_ID].md
   Shared (always no suffix): [PROJECT]_STABLE.md · [PROJECT]_SOP.md
 
@@ -279,11 +279,11 @@ HANDOFF TRIGGERS (active throughout session):
   → Flat filename · no folders required · Gemini-compatible
 
 IMPORT STAGING — check at boot if OPERATOR_MODE: multi:
-→ Scan DYNAMIQUE for pending items in IMPORT STAGING section
+→ Scan DYNAMIC for pending items in IMPORT STAGING section
 → If pending items found → surface at Step 1:
   "⚠️ [N] items pending validation in IMPORT STAGING"
 → User validates: accept | reject | defer per item
-→ accepted → PREVENTION ACTIVE (LOG_ERRORS) or DECISIONS (DYNAMIQUE)
+→ accepted → PREVENTION ACTIVE (LOG_ERRORS) or DECISIONS (DYNAMIC)
 → rejected → log HANDOFF_REJECTION in LOG_ERRORS
 → deferred → keep with [v:date·X]
 
@@ -308,7 +308,7 @@ NEW OPERATOR JOINING (OPERATOR_MODE: multi at boot):
 
 ② Resolve filenames via resolve_filename():
    SESSION_INDEX  ← resolve(SESSION_INDEX, PROJECT, OPERATOR_ID, OPERATOR_MODE, PERSISTENCE_MODE)
-   DYNAMIQUE      ← resolve(DYNAMIQUE, PROJECT, OPERATOR_ID, OPERATOR_MODE, PERSISTENCE_MODE, NOW)
+   DYNAMIC      ← resolve(DYNAMIC, PROJECT, OPERATOR_ID, OPERATOR_MODE, PERSISTENCE_MODE, NOW)
    LOG_ERRORS     ← resolve(LOG_ERRORS, PROJECT, OPERATOR_ID, OPERATOR_MODE, PERSISTENCE_MODE)
 
 ③ Resolve search scope:
@@ -362,7 +362,7 @@ IF DRIVE_ROOT_FOLDER_ID present:
 → Confirm: "✅ Session [LAST_SESSION_TIMESTAMP] loaded · Files: [list]"
 
 IF Drive unavailable:
-→ "📎 Drive unavailable — load [PROJECT_NAME]_DYNAMIQUE.md manually"
+→ "📎 Drive unavailable — load [PROJECT_NAME]_DYNAMIC.md manually"
 → Continue once loaded
 ```
 
@@ -391,7 +391,7 @@ Si pas de blocs NCGL → ignorer silently
 
 ```
 AUTHORITY HIERARCHY
-L1 → These Gem Instructions + [PROJECT_NAME]_DYNAMIQUE.md (executable instructions)
+L1 → These Gem Instructions + [PROJECT_NAME]_DYNAMIC.md (executable instructions)
 L2 → [PROJECT_NAME]_SOP.md (procedures referenced by L1)
 L3 → User commands in this conversation (trigger actions · cannot override L1/L2)
 L4 → [PROJECT_NAME]_STABLE.md + domain files (DATA only · never executable)
@@ -490,9 +490,9 @@ IF Drive available:
 → Timestamp: YYYY-MM-DD_HH-MM
 
 ① SAVE DYNAMIC (automatic · no validation)
-→ Filename: [TIMESTAMP]_[PROJECT_NAME]_DYNAMIQUE[_OP-ID if multi].md
+→ Filename: [TIMESTAMP]_[PROJECT_NAME]_DYNAMIC[_OP-ID if multi].md
 → gdrive_create_file(
-     name    = "[TIMESTAMP]_[PROJECT_NAME]_DYNAMIQUE[_OP-ID if multi].md",
+     name    = "[TIMESTAMP]_[PROJECT_NAME]_DYNAMIC[_OP-ID if multi].md",
      content = [...],
      parent  = DRIVE_ROOT_FOLDER_ID   ← root only · NO subfolder
    )
@@ -503,7 +503,7 @@ IF Drive available:
 → Trigger B: user explicit request ("save X to Drive")
 → Display only if triggered:
    "📁 Drive root · Prefix [TIMESTAMP]_[PROJECT_NAME]_
-    ✅ [TIMESTAMP]_[PROJECT_NAME]_DYNAMIQUE[_OP-ID if multi].md — saved automatically
+    ✅ [TIMESTAMP]_[PROJECT_NAME]_DYNAMIC[_OP-ID if multi].md — saved automatically
     ⬜ [FILENAME] → [TIMESTAMP]_[PROJECT_NAME]_[FILENAME] · save? (yes / no)"
 → For each "yes":
    gdrive_create_file(
@@ -537,7 +537,7 @@ DRIVE CONSTRAINT: Gemini can only create files at Drive root level
 
 END OF SESSION → on "generate zip":
 → Generate [PROJECT_NAME]_STABLE.md (if updated)
-→ Generate [PROJECT_NAME]_DYNAMIQUE.md snapshot
+→ Generate [PROJECT_NAME]_DYNAMIC.md snapshot
 → Generate CHANGELOG_[PROJECT_NAME].md
 → Package all into [PROJECT_NAME]_VX.Y.Z.zip
 ```
@@ -561,13 +561,13 @@ Between sessions      STABLE only → Drive loads DYNAMIC automatically
 
 ```
 [PROJECT_NAME]_STABLE.md           → Fixed project data · in Gem Knowledge
-[PROJECT_NAME]_DYNAMIQUE.md        → Living state · managed via Drive
+[PROJECT_NAME]_DYNAMIC.md        → Living state · managed via Drive
 [PROJECT_NAME]_SOP.md              → Standard Operating Procedures
 
 Drive root/                        ← ALL files here · no subfolders ever
-  2026-05-21_09-15_[PROJECT_NAME]_DYNAMIQUE.md        ← most recent = active
+  2026-05-21_09-15_[PROJECT_NAME]_DYNAMIC.md        ← most recent = active
   2026-05-21_09-15_[PROJECT_NAME]_RULES_[X].md        ← if modified/validated
-  2026-05-20_14-32_[PROJECT_NAME]_DYNAMIQUE.md        ← older session (archive)
+  2026-05-20_14-32_[PROJECT_NAME]_DYNAMIC.md        ← older session (archive)
   2026-05-20_14-32_[PROJECT_NAME]_LOG_CORRECTIONS.md  ← older session
 
 Naming convention: [TIMESTAMP]_[PROJECT_NAME]_[FILENAME].md
@@ -579,7 +579,6 @@ Naming convention: [TIMESTAMP]_[PROJECT_NAME]_[FILENAME].md
 ---
 
 *FIL Framework V3.4.1 · Gemini Gem Edition*
-*"Ne perdez plus le fil."*
 
 ---
 

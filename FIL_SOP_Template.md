@@ -869,7 +869,7 @@ Or end of mandate / role change
 
 ③ Save to Drive (flat · all platforms):
    [TIMESTAMP]_[PROJECT_NAME]_HANDOFF_[OP-A]_TO_[OP-B].md
-   Example: 2026-06-05_1030_Fiscaleva_HANDOFF_OP-SARAH_TO_OP-LUCAS.md
+   Example: 2026-06-05_1030_MyCoaching_HANDOFF_OP-SARAH_TO_OP-LUCAS.md
    → Claude: in project Drive folder
    → Gemini: at Drive root (flat · no subfolder)
    → GPT: download + send manually
@@ -1018,11 +1018,11 @@ File with no OP-ID suffix   → SHARED namespace · accessible by all
 File with _OP-X suffix      → SOVEREIGN namespace · owned by operator X
 
 Examples:
-  Fiscaleva_STABLE.md                  → SHARED
-  Fiscaleva_SOP.md                     → SHARED
-  Fiscaleva_SESSION_INDEX_OP-SARAH.md  → SOVEREIGN(OP-SARAH)
-  Fiscaleva_SESSION_INDEX_OP-LUCAS.md  → SOVEREIGN(OP-LUCAS)
-  2026-06-05_Fiscaleva_HANDOFF_OP-SARAH_TO_OP-LUCAS.md → HANDOFF namespace
+  MyCoaching_STABLE.md                  → SHARED
+  MyCoaching_SOP.md                     → SHARED
+  MyCoaching_SESSION_INDEX_OP-SARAH.md  → SOVEREIGN(OP-SARAH)
+  MyCoaching_SESSION_INDEX_OP-LUCAS.md  → SOVEREIGN(OP-LUCAS)
+  2026-06-05_MyCoaching_HANDOFF_OP-SARAH_TO_OP-LUCAS.md → HANDOFF namespace
 ```
 
 ### Namespace Rules
@@ -1141,3 +1141,4 @@ V1 ([DATE])
 → Initial creation — SOPs: Bootstrap · Fallbacks · Drive · Alerts · Closure · Security
 → Based on FIL Framework V3.4.1
 ```
+*[PROJECT_NAME] SOP · FIL V3.4.1 - AEL*
