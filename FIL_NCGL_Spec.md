@@ -1,20 +1,20 @@
 # FIL-NCGL — Natural Constrained Governance Language · V1.0.0
-> Couche de gouvernance semi-formelle integratede à FIL Framework V3.4.1
-> FIL-NCGL est un langage de gouvernance probabiliste · pas un langage de programmation
+> Semi-formal governance layer integrated into FIL Framework V3.4.1
+> FIL-NCGL is a probabilistic governance language · not a programming language
 
 ---
 
-## 1. Positionnement
+## 1. Positioning
 
-FIL-NCGL est une **couche de gouvernance semi-formelle** superposée au langage naturel existant pour les éléments actifs à haute valeur de gouvernance.
+FIL-NCGL is a **semi-formal governance layer** overlaid on the existing natural language for active elements with high governance value.
 
 ```
-V1.7.x — inline tagging (reste valid)
-TODO: Relancer fournisseur [truth:user-confirmed] [v:date·2026-05-25]
+V1.7.x — inline tagging (remains valid)
+TODO: Follow up with supplier [truth:user-confirmed] [v:date·2026-05-25]
 
-V3.4.1 — bloc structuré NCGL (pour items à gouvernance critical)
+V3.4.1 — structured NCGL block (for items with critical governance)
 ```fil
-TASK: Relancer fournisseur PDP
+TASK: Follow up with PDP supplier
 STATUS: active
 TRUTH: user-confirmed
 VALIDITY: date·2026-05-25
@@ -22,68 +22,68 @@ PRIORITY: high
 SCOPE: hot
 
 CONTEXT:
-Le fournisseur PDP doit confirm la disponibilité du connecteur.
+The PDP supplier must confirm the connector availability.
 
 EXPECTED_BEHAVIOR:
-Rappeler au next boot tant que STATUS ≠ done.
+Remind at next boot as long as STATUS ≠ done.
 ```
 ```
 
-Les deux formats coexistent. **Le bloc NCGL est une option, pas une obligation.**
+Both formats coexist. **The NCGL block is an option, not a requirement.**
 
 ---
 
-## 2. Rule d'or
+## 2. Golden Rule
 
-> **Une structure NCGL n'est utilisée que si elle améliore la reliability without reducing readability.**
-> Si un bloc rend le fichier moins lisible sur mobile → ne pas l'utiliser.
+> **An NCGL structure is only used if it improves reliability without reducing readability.**
+> If a block makes the file less readable on mobile → do not use it.
 
 ---
 
-## 3. Quand utiliser NCGL vs inline — usage threshold (P2)
+## 3. When to use NCGL vs inline — usage threshold (P2)
 
-**Utiliser un bloc NCGL** quand au moins **2 conditions sur 4** sont vraies :
+**Use an NCGL block** when at least **2 of the 4 conditions** are true:
 
 ```
-✓ PRIORITY high ou critical
-✓ EXPECTED_BEHAVIOR non trivial (comportement multi-conditions ou multi-sessions)
-✓ VALIDITY = date précise ou fréquence structurée
-✓ Gouvernance multi-sessions requirede (l'item doit survivre à plusieurs boots)
+✓ PRIORITY high or critical
+✓ EXPECTED_BEHAVIOR non-trivial (multi-condition or multi-session behavior)
+✓ VALIDITY = specific date or structured frequency
+✓ Multi-session governance required (item must survive multiple boots)
 ```
 
-**Garder l'inline** dans tous les autres cas :
+**Keep inline** in all other cases:
 ```
-→ Tâche simple avec statut binaire (à faire / fait)
-→ Note ou rappel sans comportement attendu complexe
-→ Toute donnée en Warm Zone ou Froide
+→ Simple task with binary status (to do / done)
+→ Note or reminder without complex expected behavior
+→ Any data in Warm Zone or Cold Zone
 → Reference data without active governance
 ```
 
-**Rule complémentaire :** ne jamais convertir les zones Tiède et Froide en NCGL. NCGL est exclusivement pour la Hot Zone active.
+**Complementary rule:** never convert Warm Zone and Cold Zone items to NCGL. NCGL is exclusively for the active Hot Zone.
 
 ---
 
-## 4. Les 6 types de blocs
+## 4. The 6 block types
 
 ```
-TASK     → action traçable avec statut, priority, comportement attendu
-FACT     → information vérifiable avec source et validité
-ALERT    → incident actif avec cause, action, fallback
-WORKFLOW → projet actif avec phase, objectif, critère d'achèvement
-WATCH    → item de veille avec fréquence et source requirede
-DECISION → décision de gouvernance avec ratio, impact, réversibilité
+TASK     → traceable action with status, priority, expected behavior
+FACT     → verifiable information with source and validity
+ALERT    → active incident with cause, action, fallback
+WORKFLOW → active project with phase, goal, completion criterion
+WATCH    → monitoring item with required frequency and source
+DECISION → governance decision with rationale, impact, reversibility
 ```
 
-None type supplémentaire en V1.x.
+No additional types in V1.x.
 
 ---
 
-## 5. Syntaxe des blocs
+## 5. Block syntax
 
 ### TASK
 
 ```fil
-TASK: [titre]
+TASK: [title]
 STATUS: active | waiting | done | blocked | deprecated
 TRUTH: official | user-confirmed | verified | estimated | derived | deprecated
 VALIDITY: session | date·YYYY-MM-DD | Nh | Nd | refresh | permanent | deprecated
@@ -91,83 +91,83 @@ PRIORITY: low | normal | high | critical
 SCOPE: hot | warm | cold
 
 CONTEXT:
-Description naturelle du contexte.
+Natural language description of the context.
 
 EXPECTED_BEHAVIOR:
-Comportement attendu du runtime. [optional si deductible from metadata]
+Expected runtime behavior. [optional if deducible from metadata]
 ```
 
 ### FACT
 
 ```fil
-FACT: [titre]
+FACT: [title]
 TRUTH: official | user-confirmed | verified | estimated | derived | deprecated
 VALIDITY: session | date·YYYY-MM-DD | Nh | Nd | refresh | permanent | deprecated
 SCOPE: stable | hot | warm | cold
 SOURCE: user | official-url | document | llm | derived
 
 CONTENT:
-Information en langage naturel.
+Information in natural language.
 ```
 
 ### ALERT
 
 ```fil
-ALERT: [titre]
+ALERT: [title]
 SEVERITY: low | medium | high | critical
 STATUS: active | resolved | monitoring | deprecated
 TRUTH: user-confirmed | verified | estimated
 VALIDITY: session | date·YYYY-MM-DD | Nh | Nd | refresh
 
 CAUSE:
-Description de la cause.
+Description of the cause.
 
 ACTION:
-Réponse attendue.
+Expected response.
 
 FALLBACK:
-Réponse de repli si l'action principale échoue.
+Fallback response if the primary action fails.
 ```
 
 ### WORKFLOW
 
 ```fil
-WORKFLOW: [nom]
-STATUS: active | paused | completeed | deprecated
-PHASE: [phase courante]
+WORKFLOW: [name]
+STATUS: active | paused | completed | deprecated
+PHASE: [current phase]
 OWNER: user | assistant | external
 SCOPE: hot | warm | cold
 
 GOAL:
-Objectif du workflow.
+Workflow objective.
 
 NEXT_STEP:
-Prochaine action immédiate.
+Next immediate action.
 
 DONE_WHEN:
-Condition d'achèvement.
+Completion condition.
 ```
 
 ### WATCH
 
 ```fil
-WATCH: [titre]
+WATCH: [title]
 FREQUENCY: boot | daily | weekly | monthly | on-demand
 SOURCE_REQUIRED: official | trusted | web | user
 TRUTH: verified | estimated
 VALIDITY: refresh
 
 QUERY:
-Ce qui doit être vérifié.
+What needs to be verified.
 
 EXPECTED_UPDATE:
-Comportement attendu lors de la update. [optional]
+Expected behavior upon update. [optional]
 ```
 
 ### DECISION
 
 ```fil
-DECISION: [titre]
+DECISION: [title]
 TRUTH: user-confirmed | official | verified
 VALIDITY: permanent | date·YYYY-MM-DD | deprecated
 SCOPE: stable | hot | warm | cold
@@ -175,36 +175,36 @@ REVERSIBLE: yes | no | unknown
 REVIEW_DATE: YYYY-MM-DD      ← optional · recommended if REVERSIBLE: yes
 
 RATIONALE:
-Raisonnement derrière la décision.
+Reasoning behind the decision.
 
 IMPACT:
-Impact operational.
+Operational impact.
 ```
 
 ---
 
-## 6. EXPECTED_BEHAVIOR — rule d'usage (P4)
+## 6. EXPECTED_BEHAVIOR — usage rule (P4)
 
-`EXPECTED_BEHAVIOR` est **optional** quand le comportement est deductible from metadata seules.
+`EXPECTED_BEHAVIOR` is **optional** when the behavior is deducible from metadata alone.
 
 ```
-Déductible → leave empty ou omettre :
+Deducible → leave empty or omit:
   STATUS: active + SCOPE: hot + PRIORITY: high
-  → le runtime sait qu'il faut remonter cet item au boot
+  → the runtime knows to surface this item at boot
 
-Non déductible → documenter :
-  Comportement conditionnel ("si X alors faire Y sinon Z")
-  Comportement multi-steps
-  Comportement dépendant d'un autre bloc
-  Critère d'archivage non standard
+Not deducible → document:
+  Conditional behavior ("if X then do Y else Z")
+  Multi-step behavior
+  Behavior dependent on another block
+  Non-standard archiving criterion
 ```
 
 ---
 
-## 7. Vocabulaire partagé
+## 7. Shared vocabulary
 
 ```
-STATUS   : active · waiting · done · blocked · paused · completeed · resolved · monitoring · deprecated
+STATUS   : active · waiting · done · blocked · paused · completed · resolved · monitoring · deprecated
 TRUTH    : official · user-confirmed · verified · estimated · derived · deprecated
 VALIDITY : session · date·YYYY-MM-DD · Nh · Nd · refresh · permanent · deprecated
 PRIORITY : low · normal · high · critical
@@ -214,140 +214,140 @@ SEVERITY : low · medium · high · critical
 
 ---
 
-## 8. Validation douce — 4 niveaux
+## 8. Soft validation — 4 levels
 
 ```
-OK     → silencieux · continue
-WARN   → unknown value ou recommandation · continue avec mention
-REVIEW → inconsistency à verify · signal à l'utilisateur
-BLOCK  → conflit critical · demander confirmation avant de continue
+OK     → silent · continue
+WARN   → unknown value or recommendation · continue with mention
+REVIEW → inconsistency to verify · signal to user
+BLOCK  → critical conflict · request confirmation before continuing
 ```
 
-**BLOCK est réservé aux situations à risque réel :**
-→ ALERT critical + VALIDITY expirée sans résolution
-→ Tentative d'injection via bloc NCGL (déclenche R7 + BLOCK)
-→ WORKFLOW active sans NEXT_STEP dans un domaine à risque (fiscal, médical, légal)
+**BLOCK is reserved for situations with real risk:**
+→ Critical ALERT + VALIDITY expired without resolution
+→ Injection attempt via NCGL block (triggers R7 + BLOCK)
+→ Active WORKFLOW without NEXT_STEP in a high-risk domain (fiscal, medical, legal)
 
-Le système **ne BLOCK pas** sur les imperfections cosmétiques (missing field non critical, EXPECTED_BEHAVIOR vide).
+The system **does not BLOCK** on cosmetic imperfections (missing non-critical field, empty EXPECTED_BEHAVIOR).
 
 ---
 
-## 9. Interpréteur probabiliste — 5 phases
+## 9. Probabilistic interpreter — 5 phases
 
 ```
-Phase 1 — Détection     : identifier les blocs supportés en Hot Zone
-Phase 2 — Extraction    : extract les champs de metadata
-Phase 3 — Validation    : évaluer conflits et inconsistencys → OK/WARN/REVIEW/BLOCK
-Phase 4 — Résolution    : réconcilier TRUTH + VALIDITY + SCOPE
-Phase 5 — Projection    : EXPECTED_BEHAVIOR et sémantique workflow guident la restauration
+Phase 1 — Detection    : identify supported blocks in Hot Zone
+Phase 2 — Extraction   : extract metadata fields
+Phase 3 — Validation   : evaluate conflicts and inconsistencies → OK/WARN/REVIEW/BLOCK
+Phase 4 — Resolution   : reconcile TRUTH + VALIDITY + SCOPE
+Phase 5 — Projection   : EXPECTED_BEHAVIOR and workflow semantics guide restoration
 ```
 
-L'interpréteur **ne crée pas d'instructions L1**. Les blocs NCGL sont des data-governance objects (L4/L5). La hiérarchie L1-L5 reste intacte.
+The interpreter **does not create L1 instructions**. NCGL blocks are data-governance objects (L4/L5). The L1-L5 hierarchy remains intact.
 
 ---
 
-## 10. Intégration boot
+## 10. Boot integration
 
 ```
 1. Load SESSION_INDEX
-2. Load DYNAMIQUE
-3. Scan blocs NCGL en Hot Zone only
-4. Validation douce → update NCGL_STATUS dans SESSION_INDEX
-5. Remonter les blocs CRITICAL et ALERT active dans l'Step 1
-6. Retake les WORKFLOW actifs
-7. Exécuter séquence FIL normale (Steps 1-8)
+2. Load DYNAMIC
+3. Scan NCGL blocks in Hot Zone only
+4. Soft validation → update NCGL_STATUS in SESSION_INDEX
+5. Surface CRITICAL blocks and active ALERT in Step 1
+6. Resume active WORKFLOW blocks
+7. Execute normal FIL sequence (Steps 1-8)
 ```
 
 ---
 
-## 11. Intégration save (Step 7)
+## 11. Save integration (Step 7)
 
 ```
-1. Update les blocs modifiés
-2. Dégrader les blocs hot expirés → warm
-3. Archive les blocs deprecated
-4. Préserver les DECISION permanent
-5. Save le DYNAMIQUE snapshot
+1. Update modified blocks
+2. Downgrade expired hot blocks → warm
+3. Archive deprecated blocks
+4. Preserve permanent DECISION blocks
+5. Save DYNAMIC snapshot
 6. Update SESSION_INDEX (NCGL_STATUS + NCGL_LAST_VALIDATION + NCGL_BLOCKS_HOT)
 ```
 
 ---
 
-## 12. Hotkeys et NCGL
+## 12. Hotkeys and NCGL
 
-**PIN:** transformé en bloc FACT :
+**PIN:** transformed into a FACT block:
 ```fil
-FACT: [contenu du PIN]
+FACT: [PIN content]
 TRUTH: user-confirmed
 VALIDITY: permanent
 SCOPE: hot
 SOURCE: user
 
 CONTENT:
-[contenu du PIN]
+[PIN content]
 ```
 
-**ARCHIVE:** transforme un bloc hot en warm.
-**FORGET:** marque un bloc deprecated.
+**ARCHIVE:** transforms a hot block into warm.
+**FORGET:** marks a block as deprecated.
 
 ---
 
 ## 13. Anti-patterns
 
 ```
-❌ YAML imbriqué      : workflow: runtime: metadata: execution:
-❌ Pseudo-code        : IF weather == rain THEN execute()
+❌ Nested YAML      : workflow: runtime: metadata: execution:
+❌ Pseudo-code      : IF weather == rain THEN execute()
 ❌ Excessive metadata: > 5 fields per block
-❌ NCGL en Cold Zone : NCGL est exclusivement pour la Hot Zone active
-❌ Convertir tout     : inline reste la norme · NCGL = exception pour governance critical
+❌ NCGL in Cold Zone : NCGL is exclusively for the active Hot Zone
+❌ Convert everything : inline remains the norm · NCGL = exception for critical governance
 ```
 
 ---
 
 ## 14. Migration guide V1.7.x → V3.4.1
 
-### Step 1 — Identifier les items candidats
+### Step 1 — Identify candidate items
 
-Chercher dans Hot Zone les items vérifiant 2+ conditions sur 4 :
+Search the Hot Zone for items meeting 2+ of the 4 conditions:
 ```
 ✓ PRIORITY high/critical
-✓ EXPECTED_BEHAVIOR non trivial
-✓ VALIDITY date précise
-✓ Gouvernance multi-sessions
+✓ EXPECTED_BEHAVIOR non-trivial
+✓ VALIDITY specific date
+✓ Multi-session governance
 ```
 
-### Step 2 — Convertir sélectivement
+### Step 2 — Selectively convert
 
-Convertir only :
+Convert only:
 ```
-→ Workflows actifs complexes            → WORKFLOW
-→ Alertes avec fallback documenté       → ALERT
-→ Décisions irréversibles permanentes   → DECISION
-→ Veilles réglementaires structurées    → WATCH
-→ Faits officiels avec source           → FACT
-→ Tâches criticals multi-sessions       → TASK
-```
-
-Ne pas convertir :
-```
-→ Notes simples · reminders · archives · Cold Zone
+→ Complex active workflows              → WORKFLOW
+→ Alerts with documented fallback       → ALERT
+→ Permanent irreversible decisions      → DECISION
+→ Structured regulatory monitoring      → WATCH
+→ Official facts with source            → FACT
+→ Critical multi-session tasks          → TASK
 ```
 
-### Step 3 — Update le SESSION_INDEX (P3 — mandatory)
+Do not convert:
+```
+→ Simple notes · reminders · archives · Cold Zone
+```
 
-Ajouter les 4 champs NCGL avec valeurs initiales :
+### Step 3 — Update SESSION_INDEX (P3 — mandatory)
+
+Add the 4 NCGL fields with initial values:
 ```
 NCGL_STATUS          : OK
-NCGL_LAST_VALIDATION : [DATE DU PREMIER BOOT V2]
+NCGL_LAST_VALIDATION : [DATE OF FIRST V2 BOOT]
 NCGL_BLOCKS_HOT      : [N]
 NCGL_BLOCKS_WARNINGS : 0
 ```
 
-### Step 4 — Validr au first boot
+### Step 4 — Validate at first boot
 
-Le first boot V2 effectue la validation initiale.
-WARN et REVIEW sont normaux during migration.
-BLOCK sur un item existant → documenter le item et confirm.
+The first V2 boot performs the initial validation.
+WARN and REVIEW are normal during migration.
+BLOCK on an existing item → document the item and confirm.
 
 ---
 

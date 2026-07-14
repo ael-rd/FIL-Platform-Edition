@@ -1,75 +1,74 @@
 # FIL Framework — Platform Editions · V3.4.1
-> "Ne perdez plus le fil."
-> Trois plateformes · un framework · architecture unifiée.
+> Three platforms · one framework · unified architecture.
 
 ---
 
-## Convention de versioning
+## Versioning Convention
 
 ```
-FIL Framework V3.4.1         → version du framework sous-jacent
-Claude Projects Edition V3.4.1 → version de cette édition spécifique
+FIL Framework V3.4.1           → version of the underlying framework
+Claude Projects Edition V3.4.1 → version of this specific edition
 
-Les deux évoluent indépendamment.
-FIL Framework monte à chaque amélioration du framework core.
-L'édition monte à chaque changement du mode de déploiement lui-même.
+Both evolve independently.
+FIL Framework increments with every core framework improvement.
+The edition increments with every change to the deployment mode itself.
 ```
 
 ---
 
-## Analyse d'intérêt per platform
+## Interest Analysis per Platform
 
-> **Note importante :** FIL est un méta-framework de templates.
-> L'intérêt des éditions plateforme est plus élevé pour les **verticales**
-> ([PROJECT_NAME], [PROJECT_NAME]) que pour FIL core lui-même.
-> Pour FIL, la valeur principale est le **packaging et la cohérence**,
-> pas les gains de tokens (no large domain files reloaded chaque session).
+> **Important note:** FIL is a template meta-framework.
+> The value of platform editions is higher for **verticals**
+> ([PROJECT_NAME], [PROJECT_NAME]) than for FIL core itself.
+> For FIL, the main value is **packaging and consistency**,
+> not token savings (no large domain files reloaded each session).
 
 | | Claude Project | Gemini Gem | Custom GPT |
 |---|---|---|---|
-| **Intérêt pour FIL** | ⭐⭐ Modéré | ⭐⭐ Modéré | ⭐ Limité |
-| **Intérêt pour verticales** | ⭐⭐⭐ Élevé | ⭐⭐ Modéré | ⭐ Limité |
-| **STABLE permanent** | ✅ Knowledge | ✅ Knowledge | ✅ Knowledge |
-| **SOP permanent** | ✅ Knowledge | ✅ Knowledge | ✅ Knowledge |
-| **FIL_BOOT permanent** | ✅ Knowledge | ✅ Knowledge | ✅ Knowledge |
-| **DYNAMIQUE auto** | ✅ Drive MCP | ✅ Drive root | ❌ upload manuel |
-| **Drive créer dossiers** | ✅ | ❌ racine seule | ❌ |
-| **Économie tokens** | ~40% | ~40% | ~20% |
+| **Interest for FIL** | ⭐⭐ Moderate | ⭐⭐ Moderate | ⭐ Limited |
+| **Interest for verticals** | ⭐⭐⭐ High | ⭐⭐ Moderate | ⭐ Limited |
+| **Permanent STABLE** | ✅ Knowledge | ✅ Knowledge | ✅ Knowledge |
+| **Permanent SOP** | ✅ Knowledge | ✅ Knowledge | ✅ Knowledge |
+| **Permanent FIL_BOOT** | ✅ Knowledge | ✅ Knowledge | ✅ Knowledge |
+| **Auto DYNAMIC** | ✅ Drive MCP | ✅ Drive root | ❌ manual upload |
+| **Drive folder creation** | ✅ | ❌ root only | ❌ |
+| **Token savings** | ~40% | ~40% | ~20% |
 
 ---
 
-## Ce que contient ce zip
+## What this zip contains
 
 ```
-README_Platform_Editions.md          ← ce fichier
+README_Platform_Editions.md          ← this file
 
 ── CLAUDE PROJECT ──────────────────────────────────────────────────
 FIL_Project_Instructions.md          ← system prompt · Project Instructions
-FIL_DYNAMIQUE_DataOnly_Template.md   ← DYNAMIQUE data only
+FIL_DYNAMIC_DataOnly_Template.md     ← DYNAMIC data only
 FIL_STABLE_Template.md               ← Project Knowledge
 FIL_SOP_Template.md                  ← Project Knowledge
-CHANGELOG_Template.md                ← versioning projet
+CHANGELOG_Template.md                ← project versioning
 
 ── GEMINI GEM ──────────────────────────────────────────────────────
 FIL_Gem_Instructions.md              ← system prompt · Gem Instructions
-(+ FIL_DYNAMIQUE_DataOnly_Template.md · FIL_STABLE_Template.md communs)
+(+ FIL_DYNAMIC_DataOnly_Template.md · FIL_STABLE_Template.md shared)
 
 ── CUSTOM GPT ──────────────────────────────────────────────────────
 FIL_GPT_Instructions.md              ← system prompt · GPT Instructions
-(+ FIL_DYNAMIQUE_DataOnly_Template.md · FIL_STABLE_Template.md communs)
+(+ FIL_DYNAMIC_DataOnly_Template.md · FIL_STABLE_Template.md shared)
 ```
 
 ---
 
-## Claude Project (⭐⭐ Modéré pour FIL)
+## Claude Project (⭐⭐ Moderate for FIL)
 
-**Ce que ça apporte :**
-FIL_BOOT.md, STABLE_TEMPLATE, SOP_TEMPLATE en Knowledge — toujours availables.
-DYNAMIQUE = data only (~80 lines vs ~400 en mode standard).
-Drive MCP gère la persistance automatically.
+**What it brings:**
+FIL_BOOT.md, STABLE_TEMPLATE, SOP_TEMPLATE in Knowledge — always available.
+DYNAMIC = data only (~80 lines vs ~400 in standard mode).
+Drive MCP handles persistence automatically.
 
-**Quand c'est utile :**
-Si vous avez un projet FIL en cours géré directement via Claude — pas only pour créer des projets via FIL_BOOT.
+**When it is useful:**
+If you have an ongoing FIL project managed directly via Claude — not only for creating projects via FIL_BOOT.
 
 **Setup:**
 1. Create a Claude Project → name it "[PROJECT_NAME]"
@@ -78,7 +77,7 @@ Si vous avez un projet FIL en cours géré directement via Claude — pas only p
    `[PROJECT_NAME]_STABLE.md` · `[PROJECT_NAME]_SOP.md`
 4. Settings → Integrations → Google Drive → Connect
 5. Upload to Drive [PROJECT_NAME]/ folder:
-   Domain files · `[PROJECT_NAME]_DYNAMIQUE_DataOnly.md`
+   Domain files · `[PROJECT_NAME]_DYNAMIC_DataOnly.md`
 6. First conversation:
    → Say "setup Drive" → LLM creates SESSION_INDEX + saves to Drive
    → All subsequent sessions: everything loads automatically from Drive
@@ -87,20 +86,18 @@ Si vous avez un projet FIL en cours géré directement via Claude — pas only p
 → Add new context files to Drive
 → Project Knowledge: never touched
 
-LES + PROMPTS + CALENDRIER = reloaded every session
-→ Gain tokens en Claude Project : ~70%
-→ La valeur est réelle et immédiate
-```
+PROMPTS + CALENDAR = reloaded every session
+→ Token savings in Claude Project: ~70%
+→ The value is real and immediate
 
 ---
 
-## Recommandation
+## Recommendation
 
-Si vous utilisez FIL pour gérer **un projet en cours** → Claude Project apporte de la valeur.
-Si vous utilisez FIL pour **bootstrapper des projets** (FIL_BOOT) → mode standard suffit.
-Pour **les verticales** → Claude Project en priority · Gem en second.
+If you use FIL to manage **an ongoing project** → Claude Project adds value.
+If you use FIL to **bootstrap projects** (FIL_BOOT) → standard mode is sufficient.
+For **verticals** → Claude Project as priority · Gem as second choice.
 
 ---
 
-*FIL Framework V3.4.1 · Platform Editions*
-*"Ne perdez plus le fil."*
+*FIL Framework V3.4.1 · Platform Editions - AEL*
